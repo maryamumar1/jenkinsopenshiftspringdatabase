@@ -18,7 +18,7 @@ pipeline {
            //MYSQL_CREDS = credentials('MySQLCreds')
           }
       steps {
-        sh "oc login -u admin -u admin https://localhost:8443"
+        sh "oc login https://localhost:8443 --username admin --password admin --insecure-skip-tls-verify=true"
         sh "oc project ${projectName} || oc new-project ${projectName}"
         sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
         sh "oc new-app ${dockerImageTag} -l version=${version}"
